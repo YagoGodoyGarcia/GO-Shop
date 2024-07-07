@@ -187,9 +187,12 @@ const Customizer = ({ mouseMovement, handleMouseMove }) => {
                                 helperText={tab.helperText}
                             />
                         ))}
+
+                        {/** 
                         <button className='download-btn' onClick={downloadCanvasToImage}>
                             <img src={download} alt="download" className='w-3/5 h-3/5 object-contain' />
                         </button>
+                        */}
                     </motion.div>
                     <motion.div
                         key="modelsAI"

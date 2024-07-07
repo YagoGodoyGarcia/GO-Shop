@@ -26,12 +26,6 @@ const FilePicker = ({ file, setFile, readFile }) => {
                     handleClick={() => readFile("logo")}
                     customStyles="text-xs"
                 />
-                <CustomButton
-                    type="filled"
-                    title="Textura"
-                    handleClick={() => readFile("full")}
-                    customStyles="text-xs"
-                />
             </div>
         </div>
     )
