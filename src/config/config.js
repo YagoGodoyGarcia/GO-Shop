@@ -1,9 +1,9 @@
 const config = {
   development: {
-    backendUrl: "http://localhost:8080/api/v1/sdapi",
+    backendUrl: "",
   },
   production: {
-    backendUrl: "https://pixelthreads.onrender.com/api/v1/sdapi",
+    backendUrl: "",
   },
 };
 

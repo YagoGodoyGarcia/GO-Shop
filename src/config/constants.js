@@ -4,12 +4,12 @@ export const EditorTabs = [
   {
     name: "colorpicker",
     icon: swatch,
-    helperText: "Color",
+    helperText: "Cor",
   },
   {
     name: "filepicker",
     icon: fileIcon,
-    helperText: "File",
+    helperText: "Arquivo",
   },
   /**
   {
@@ -20,7 +20,7 @@ export const EditorTabs = [
   {
     name: "mouseMovement",
     icon: mouse,
-    helperText: "Mouse",
+    helperText: "Mover",
   }
 ];
 
@@ -30,6 +30,7 @@ export const FilterTabs = [
     icon: logoShirt,
     helperText: "Logo",
   },
+
   {
     name: "stylishShirt",
     icon: stylishShirt,
@@ -40,7 +41,7 @@ export const modelTabs = [ // Limit helpertext length to 6-7 characters
   {
     name: "Camiseta",
     icon: logoShirt, // TODO: change to tshirt icon
-    helperText: "T-Shirt",
+    helperText: "Camiseta",
   },
   {
     name: "Camiseta Polo",
@@ -50,12 +51,12 @@ export const modelTabs = [ // Limit helpertext length to 6-7 characters
   {
     name: 'Caneca',
     icon: mug, // TODO: change to mug icon
-    helperText: "Mug",
+    helperText: "Caneca",
   },
   {
     name: 'Caderno',
     icon: diary, // TODO: change to diary icon
-    helperText: 'Diary',
+    helperText: 'Caderno',
   }
 ];
 
