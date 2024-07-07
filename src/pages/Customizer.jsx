@@ -198,7 +198,7 @@ const Customizer = ({ mouseMovement, handleMouseMove }) => {
                     >
                         <div className='flex items-center min-h-screen'>
                             <div className='modeltabs-container tabs'>
-                                <p className='text-sm text-gray-500 my-[-5px]'>Models</p>
+                                <p className='text-sm text-gray-500 my-[-5px]'>Modelos</p>
                                 {modelTabs.map((tab, index) => (
                                     <Tab
                                         key={tab.name}

@@ -38,22 +38,22 @@ export const FilterTabs = [
 ];
 export const modelTabs = [ // Limit helpertext length to 6-7 characters
   {
-    name: "tshirt",
+    name: "Camiseta",
     icon: logoShirt, // TODO: change to tshirt icon
     helperText: "T-Shirt",
   },
   {
-    name: "poloShirt",
+    name: "Camiseta Polo",
     icon: poloShirt, // TODO: change to poloShirt icon
     helperText: "Polo",
   },
   {
-    name: 'mug',
+    name: 'Caneca',
     icon: mug, // TODO: change to mug icon
     helperText: "Mug",
   },
   {
-    name: 'diary',
+    name: 'Caderno',
     icon: diary, // TODO: change to diary icon
     helperText: 'Diary',
   }
