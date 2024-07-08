@@ -7,8 +7,7 @@ import { download } from '../assets';
 import { downloadCanvasToImage, reader } from '../config/helpers';
 import { EditorTabs, FilterTabs, DecalTypes, modelTabs } from '../config/constants';
 import { fadeAnimation, slideAnimation } from '../config/motion';
-import {  ColorPicker, CustomButton, FilePicker, MouseMovement, Tab } from '../components';
-
+import { ColorPicker, CustomButton, FilePicker, MouseMovement, Tab } from '../components';
 
 const Customizer = ({ mouseMovement, handleMouseMove }) => {
     const snap = useSnapshot(state);
@@ -20,13 +19,17 @@ const Customizer = ({ mouseMovement, handleMouseMove }) => {
         logoShirt: true,
         stylishShirt: false,
     });
-    // Use same key name as set in modelTabs in constants
     const [activeModelTab, setActiveModelTab] = useState({
         tshirt: true,
         poloShirt: false,
     });
 
-    //show tab content based on active tab
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [quantity, setQuantity] = useState(1);
+    const [address, setAddress] = useState('');
+    const [customerName, setCustomerName] = useState('');
+    const [customerEmail, setCustomerEmail] = useState('');
+
     const generateTabContent = () => {
         switch (activeEditorTab) {
             case "colorpicker":
@@ -37,13 +40,6 @@ const Customizer = ({ mouseMovement, handleMouseMove }) => {
                     setFile={setFile}
                     readFile={readFile}
                 />;
-            /**case "aipicker":
-                return <AIPicker
-                    prompt={prompt}
-                    setPrompt={setPrompt}
-                    generatingImg={generatingImg}
-                    handleSubmit={handleSubmit}
-                />;*/
             case "mouseMovement":
                 return <MouseMovement
                     mouseMovement={mouseMovement}
@@ -52,86 +48,70 @@ const Customizer = ({ mouseMovement, handleMouseMove }) => {
             default:
                 return null;
         }
-    }
+    };
+
     const handleMouseSubmit = () => {
         handleMouseMove();
         setActiveEditorTab("");
-    }
-    /**const handleSubmit = async (type) => {
-        if (prompt === '') return alert('Please enter a prompt');
+    };
 
-        try {
-            setGeneratingImg(true);
-
-            const response = await fetch(config.production.backendUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ prompt }),
-            })
-
-            if (response) {
-                const data = await response.json();
-                const imageData = data.photo.images[0];
-                handleDecals(type, `data:image/png;base64,${imageData}`)
-            }
-
-        } catch (error) {
-            alert(error)
-        } finally {
-            setGeneratingImg(false)
-            setActiveEditorTab("")
-        }
-    }*/
     const handleDecals = (type, result) => {
         const decalType = DecalTypes[type];
-        // set decal type
-        state[decalType.stateProperty] = result
+        state[decalType.stateProperty] = result;
 
         if (!activeFilterTab[decalType.filterTab]) {
-            handleActiveFilterTab(decalType.filterTab)
+            handleActiveFilterTab(decalType.filterTab);
         }
-    }
+    };
+
     const handleActiveFilterTab = (tabName) => {
         switch (tabName) {
             case 'logoShirt':
-                state.isLogoTexture = !activeFilterTab[tabName]
+                state.isLogoTexture = !activeFilterTab[tabName];
                 break;
             case 'stylishShirt':
-                state.isFullTexture = !activeFilterTab[tabName]
+                state.isFullTexture = !activeFilterTab[tabName];
                 break;
             default:
                 state.isLogoTexture = true;
                 state.isFullTexture = false;
                 break;
         }
-        // set active filter tab 
-        setActiveFilterTab((prevState) => {
-            return {
-                ...prevState,
-                [tabName]: !prevState[tabName]
-            }
-        })
-    }
+
+        setActiveFilterTab((prevState) => ({
+            ...prevState,
+            [tabName]: !prevState[tabName]
+        }));
+    };
+
     const readFile = (type) => {
-        reader(file)
-            .then((res) => {
-                handleDecals(type, res)
-                setActiveEditorTab("")
-            })
-    }
+        reader(file).then((res) => {
+            handleDecals(type, res);
+            setActiveEditorTab("");
+        });
+    };
 
     const handleChangeModel = (model) => {
         setActiveModelTab({
             ...Object.fromEntries(Object.keys(activeModelTab).map(name => [name, name === model])),
         });
-        state.model = model; // set model in canvas index
-    }
+        state.model = model;
+    };
 
     const handleFeedbackClick = () => {
-        window.open("https://wa.link/4nn54l", "_blank")
-    }
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleConfirmOrder = () => {
+        // Aqui você pode adicionar a lógica para processar o pedido
+        console.log('Pedido confirmado', { customerName, customerEmail, address, quantity, file });
+        closeModal();
+        window.open("https://wa.link/4nn54l", "_blank");
+    };
 
     return (
         <AnimatePresence>
@@ -149,13 +129,12 @@ const Customizer = ({ mouseMovement, handleMouseMove }) => {
                                         key={tab.name}
                                         tab={tab}
                                         handleClick={() => {
-                                            if (activeEditorTab === tab.name) return setActiveEditorTab("")
-                                            else setActiveEditorTab(tab.name)
+                                            if (activeEditorTab === tab.name) return setActiveEditorTab("");
+                                            else setActiveEditorTab(tab.name);
                                         }}
                                         helperText={tab.helperText}
                                     />
                                 ))}
-
                                 {generateTabContent()}
                             </div>
                         </div>
@@ -187,12 +166,6 @@ const Customizer = ({ mouseMovement, handleMouseMove }) => {
                                 helperText={tab.helperText}
                             />
                         ))}
-
-                        {/** 
-                        <button className='download-btn' onClick={downloadCanvasToImage}>
-                            <img src={download} alt="download" className='w-3/5 h-3/5 object-contain' />
-                        </button>
-                        */}
                     </motion.div>
                     <motion.div
                         key="modelsAI"
@@ -213,10 +186,80 @@ const Customizer = ({ mouseMovement, handleMouseMove }) => {
                             </div>
                         </div>
                     </motion.div>
+
+                    {isModalOpen && (
+                        <motion.div
+                            className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                        >
+                            <motion.div
+                                className="bg-white rounded-lg p-6 w-full max-w-md"
+                                initial={{ scale: 0.8 }}
+                                animate={{ scale: 1 }}
+                                exit={{ scale: 0.8 }}
+                            >
+                                <h2 className="text-xl font-bold mb-4">Detalhes do Pedido</h2>
+                                <form className="space-y-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Nome</label>
+                                        <input
+                                            type="text"
+                                            value={customerName}
+                                            onChange={(e) => setCustomerName(e.target.value)}
+                                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Email</label>
+                                        <input
+                                            type="email"
+                                            value={customerEmail}
+                                            onChange={(e) => setCustomerEmail(e.target.value)}
+                                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Endereço</label>
+                                        <textarea
+                                            value={address}
+                                            onChange={(e) => setAddress(e.target.value)}
+                                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Quantidade</label>
+                                        <input
+                                            type="number"
+                                            value={quantity}
+                                            onChange={(e) => setQuantity(e.target.value)}
+                                            min="1"
+                                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                        />
+                                    </div>
+                                </form>
+                                <div className="flex justify-end mt-4">
+                                    <button
+                                        className="bg-gray-300 px-4 py-2 rounded mr-2"
+                                        onClick={closeModal}
+                                    >
+                                        Cancelar
+                                    </button>
+                                    <button
+                                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                                        onClick={handleConfirmOrder}
+                                    >
+                                        Confirmar
+                                    </button>
+                                </div>
+                            </motion.div>
+                        </motion.div>
+                    )}
                 </>
             )}
         </AnimatePresence>
-    )
-}
+    );
+};
 
-export default Customizer
+export default Customizer;

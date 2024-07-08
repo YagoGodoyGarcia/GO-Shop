@@ -19,7 +19,7 @@ export function Mug() {
         geometry={nodes.Object_2.geometry}
         material={materials['Material.001']}
         rotation={[-Math.PI / 2, 0, 1.5]}
-        position={[0, -0.2, 0]}
+        position={[0, -0.2, -0.0024]}
         scale={2}
       >
         {snap.isFullTexture && (
@@ -34,7 +34,7 @@ export function Mug() {
         )}
         {snap.isLogoTexture && (
           <Decal
-            position={[-0.05, 0, 0.08]}
+            position={[0.05, 0, 0.08]}
             rotation={[0.08, 1.5, 1.5]}
             scale={0.05}
             map={logoTexture}

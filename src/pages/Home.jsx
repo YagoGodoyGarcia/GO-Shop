@@ -14,6 +14,8 @@ import { rossyPrint } from '../assets'
 const Home = () => {
     // test commit check
     const snap = useSnapshot(state)
+
+
     return (
         <AnimatePresence>
             {snap.intro && (
@@ -41,6 +43,8 @@ const Home = () => {
                 </motion.section>
             )}
         </AnimatePresence>
+
+        
     )
 }
 
