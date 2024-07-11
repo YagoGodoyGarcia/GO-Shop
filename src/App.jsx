@@ -11,8 +11,10 @@ function App() {
     console.log(!mouseMovement);
   }
 
+  
   return (
     <main className="app transition-all ease-in">
+    
       <Home />
       <Canvas mouseMovement={mouseMovement} />
       <Customizer mouseMovement={mouseMovement} handleMouseMove={handleMouseMove} />
