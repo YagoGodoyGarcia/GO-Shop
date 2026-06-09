@@ -12,11 +12,11 @@ const FilePicker = ({ file, setFile, readFile }) => {
                     onChange={(e) => setFile(e.target.files[0])}
                 />
                 <label htmlFor='file-upload' className='filepicker-label'>
-                    Carregar Estampa
+                    Carregar Logo
                 </label>
 
-                <p className='mt-2 text-gray-500 text-sm truncate ml-1'>
-                    {file === '' ? 'Nenhum arquivo escolhido' : file.name}
+                <p className='mt-2 text-sm truncate ml-1' style={{ color: 'rgba(255,255,255,0.4)', fontSize: 11 }}>
+                    {file === '' ? 'Nenhum arquivo' : file.name}
                 </p>
             </div>
             <div className='mt-4 flex flex-wrap gap-3'>
@@ -24,6 +24,12 @@ const FilePicker = ({ file, setFile, readFile }) => {
                     type="outline"
                     title="Logo"
                     handleClick={() => readFile("logo")}
+                    customStyles="text-xs"
+                />
+                <CustomButton
+                    type="outline"
+                    title="Full"
+                    handleClick={() => readFile("full")}
                     customStyles="text-xs"
                 />
             </div>

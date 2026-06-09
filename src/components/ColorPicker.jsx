@@ -3,7 +3,6 @@ import { SketchPicker } from 'react-color'
 import { useSnapshot } from 'valtio'
 import state from '../store'
 
-
 const ColorPicker = () => {
     const snap = useSnapshot(state);
 
@@ -13,18 +12,18 @@ const ColorPicker = () => {
                 color={snap.color}
                 disableAlpha
                 presetColors={[
-                    "#ccc",
+                    "#B721FF",
+                    "#7B2FBE",
+                    "#00D4FF",
+                    "#ffffff",
+                    "#0d0d18",
+                    "#ff4d6d",
+                    "#FF96AD",
                     "#EFBD4E",
                     "#80C670",
                     "#726DE8",
-                    "#353934",
                     "#2CCCE4",
-                    "#ff8a65",
-                    "#7098DA",
-                    "#C19277",
-                    "#FF96AD",
-                    "#512314",
-                    "#5F123D",
+                    "#353934",
                 ]}
                 onChange={(color) => state.color = color.hex}
             />

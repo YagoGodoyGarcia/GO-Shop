@@ -11,7 +11,6 @@ import state from '../store'
 import { Mug } from './Mug'
 import Diary from './Diary'
 
-
 const CanvasModel = ({ mouseMovement }) => {
     const snap = useSnapshot(state)
 
@@ -29,6 +28,7 @@ const CanvasModel = ({ mouseMovement }) => {
                 return null;
         }
     }
+
     return (
         <Canvas
             shadows
@@ -36,16 +36,20 @@ const CanvasModel = ({ mouseMovement }) => {
             gl={{ preserveDrawingBuffer: true }}
             className='w-full max-w-full h-full transition-all ease-in'
             position={[0, 0, 0]}
+            style={{ background: '#050508' }}
         >
+            <color attach="background" args={['#050508']} />
+            <fog attach="fog" args={['#050508', 10, 25]} />
             <Backdrop />
-            <ambientLight position={[0, 0, 5]} intensity={0.5} />
-            <directionalLight castShadow position={[0, 0, 5]} intensity={0.7} />
+            <ambientLight position={[0, 0, 5]} intensity={0.3} />
+            <directionalLight castShadow position={[0, 0, 5]} intensity={0.6} />
+            <pointLight position={[-5, 5, 5]} intensity={0.5} color="#B721FF" />
+            <pointLight position={[5, -5, 5]} intensity={0.3} color="#00D4FF" />
             <Environment preset="city" />
             <CameraRig rotateWithClick={mouseMovement}>
-
                 {generateModel()}
             </CameraRig>
-        </Canvas >
+        </Canvas>
     )
 }
 

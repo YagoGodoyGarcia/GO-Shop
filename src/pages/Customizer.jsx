@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSnapshot } from "valtio";
-//import config from '../config/config';
 import state from "../store";
 import { download } from "../assets";
 import { downloadCanvasToImage, reader } from "../config/helpers";
@@ -117,19 +116,6 @@ const Customizer = ({ mouseMovement, handleMouseMove }) => {
     setIsModalOpen(false);
   };
 
-  //   const handleConfirmOrder = () => {
-  //     // Aqui você pode adicionar a lógica para processar o pedido
-  //     console.log("Pedido confirmado", {
-  //       customerName,
-  //       customerEmail,
-  //       address,
-  //       quantity,
-  //       file,
-  //     });
-  //     closeModal();
-  //     window.open("https://wa.link/4nn54l", "_blank");
-  //   };
-
   return (
     <AnimatePresence>
       {!snap.intro && (
@@ -141,7 +127,7 @@ const Customizer = ({ mouseMovement, handleMouseMove }) => {
           >
             <div className="flex items-center min-h-screen">
               <div className="editortabs-container tabs">
-                {EditorTabs.map((tab, index) => (
+                {EditorTabs.map((tab) => (
                   <Tab
                     key={tab.name}
                     tab={tab}
@@ -157,30 +143,40 @@ const Customizer = ({ mouseMovement, handleMouseMove }) => {
               </div>
             </div>
           </motion.div>
+
           <motion.div className="absolute z-10 top-5 left-5" {...fadeAnimation}>
             <CustomButton
               type="filled"
-              title="Voltar"
+              title="← Início"
               handleClick={() => (state.intro = true)}
               customStyles="w-fit px-4 py-2.5 font-bold text-sm"
             />
           </motion.div>
-          <motion.div
-            className="absolute z-10 top-5 right-5"
-            {...fadeAnimation}
-          >
+
+          <motion.div className="absolute z-10 top-5 right-5" {...fadeAnimation}>
             <CustomButton
               type="filled"
-              title="Fazer pedido"
+              title="Solicitar Orçamento"
               handleClick={handleFeedbackClick}
               customStyles="w-fit px-4 py-2.5 font-bold text-sm"
             />
           </motion.div>
+
+          {/* Ruisu Studio watermark */}
+          <motion.div
+            className="absolute z-10 bottom-14 right-5"
+            {...fadeAnimation}
+          >
+            <p className="text-xs font-bold tracking-widest uppercase" style={{ color: 'rgba(183,33,255,0.4)' }}>
+              Ruisu Studio
+            </p>
+          </motion.div>
+
           <motion.div
             className="filtertabs-container"
             {...slideAnimation("up")}
           >
-            {FilterTabs.map((tab, index) => (
+            {FilterTabs.map((tab) => (
               <Tab
                 key={tab.name}
                 tab={tab}
@@ -191,6 +187,7 @@ const Customizer = ({ mouseMovement, handleMouseMove }) => {
               />
             ))}
           </motion.div>
+
           <motion.div
             key="modelsAI"
             className="absolute top-0 right-0 z-10"
@@ -198,8 +195,8 @@ const Customizer = ({ mouseMovement, handleMouseMove }) => {
           >
             <div className="flex items-center min-h-screen">
               <div className="modeltabs-container tabs">
-                <p className="text-sm text-gray-500 my-[-5px]">Modelos</p>
-                {modelTabs.map((tab, index) => (
+                <p className="text-xs font-semibold my-[-5px] uppercase tracking-wider" style={{ color: 'rgba(183,33,255,0.7)' }}>Produto</p>
+                {modelTabs.map((tab) => (
                   <Tab
                     key={tab.name}
                     tab={tab}
@@ -213,23 +210,30 @@ const Customizer = ({ mouseMovement, handleMouseMove }) => {
 
           {isModalOpen && (
             <motion.div
-              className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+              className="fixed inset-0 flex justify-center items-center z-50"
+              style={{ background: 'rgba(5,5,8,0.85)', backdropFilter: 'blur(8px)' }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
               <motion.div
-                className="bg-white rounded-lg p-6 w-full max-w-md"
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0.8 }}
+                className="rounded-xl p-6 w-full max-w-md"
+                style={{
+                  background: '#0d0d18',
+                  border: '1px solid rgba(183,33,255,0.3)',
+                  boxShadow: '0 0 40px rgba(183,33,255,0.15)'
+                }}
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
               >
                 <HeaderModal>
-                <h2 className="text-xl font-bold mb-4">Detalhes do Pedido</h2>
-                <ButtonClose onClick={() => closeModal()}>X</ButtonClose>
+                  <h2 className="text-xl font-bold mb-4" style={{ color: '#ffffff' }}>
+                    Solicitar Orçamento
+                  </h2>
+                  <ButtonClose onClick={closeModal}>✕</ButtonClose>
                 </HeaderModal>
                 <Form />
-  
               </motion.div>
             </motion.div>
           )}

@@ -38,7 +38,6 @@ export const Form = () => {
   const [errorName, setErrorName] = useState(false);
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorAddress, setErrorAddress] = useState(false);
-
   const [errorProduct, setErrorProduct] = useState(false);
 
   function SendEmail(e) {
@@ -55,7 +54,6 @@ export const Form = () => {
     if (customerEmail === "") {
       setErrorEmail(true);
       setLoading(false);
-
       return;
     } else {
       setErrorEmail(false);
@@ -63,7 +61,6 @@ export const Form = () => {
     if (address === "") {
       setErrorAddress(true);
       setLoading(false);
-
       return;
     } else {
       setErrorAddress(false);
@@ -77,9 +74,9 @@ export const Form = () => {
     ) {
       setErrorProduct(true);
       setLoading(false);
-
       return;
     }
+
     const templateParams = {
       from_name: customerName,
       email: customerEmail,
@@ -104,11 +101,9 @@ export const Form = () => {
             setSendStatus("success");
           }
         },
-        (err) => {
-          if (err.status === 200) {
-            setLoading(false);
-            setSendStatus("error");
-          }
+        () => {
+          setLoading(false);
+          setSendStatus("error");
         }
       );
   }
@@ -116,21 +111,19 @@ export const Form = () => {
   return (
     <>
       {loading ? (
-        <Spinner size="xl" w="60px" h="60px" display="flex" m="0 auto" />
+        <Spinner size="xl" w="60px" h="60px" display="flex" m="0 auto" color="#B721FF" />
       ) : sendStatus === "" ? (
         <form className="space-y-4" onSubmit={SendEmail}>
-          {errorAddress || errorEmail || errorName ? (
+          {(errorAddress || errorEmail || errorName) ? (
             <TitleCheckError>
-              Por favor preencha todos os campos com *:
+              Por favor preencha todos os campos com *
             </TitleCheckError>
           ) : errorProduct ? (
             <TitleCheckError>
-              Por favor selecione e quantifique pelo menos um de nossos
-              produtos:
+              Selecione e quantifique pelo menos um produto
             </TitleCheckError>
-          ) : (
-            ""
-          )}
+          ) : null}
+
           <div>
             <TitleCheck>Nome *</TitleCheck>
             <InputText
@@ -138,32 +131,39 @@ export const Form = () => {
               value={customerName}
               onChange={(e) => setCustomerName(e.target.value)}
               name="from_name"
+              placeholder="Seu nome completo"
               error={errorName}
             />
           </div>
+
           <div>
-            <TitleCheck>Email *</TitleCheck>
+            <TitleCheck>E-mail *</TitleCheck>
             <InputText
               type="email"
               value={customerEmail}
               onChange={(e) => setCustomerEmail(e.target.value)}
               name="email"
+              placeholder="seu@email.com"
               error={errorEmail}
             />
           </div>
+
           <div>
-            <TitleCheck>Endereço *</TitleCheck>
+            <TitleCheck>Endereço de entrega *</TitleCheck>
             <TextArea
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               name="endereco"
+              placeholder="Rua, número, bairro, cidade - UF"
               error={errorAddress}
+              rows={2}
             />
           </div>
+
           <TitleCheck>
-            Por favor selecione quais itens deseja e adicione a quantidade para
-            cada item selecionado...
+            Selecione os produtos e as quantidades:
           </TitleCheck>
+
           <CheckContainer>
             <CheckItem>
               <CheckArea>
@@ -171,24 +171,22 @@ export const Form = () => {
                   type="checkbox"
                   name="camiseta"
                   id="camiseta"
-                  className="checkCamiseta"
                   checked={checkCamiseta}
                   onChange={() => setCheckCamiseta(!checkCamiseta)}
                 />
-
                 <TitleCheck>Camiseta</TitleCheck>
               </CheckArea>
-              {checkCamiseta ? (
+              {checkCamiseta && (
                 <InputNumber
                   type="number"
                   name="input_camiseta"
-                  min={0}
+                  min={1}
+                  defaultValue={1}
                   onChange={(e) => setQntdCamiseta(e.target.value)}
                 />
-              ) : (
-                ""
               )}
             </CheckItem>
+
             <CheckItem>
               <CheckArea>
                 <input
@@ -200,17 +198,17 @@ export const Form = () => {
                 />
                 <TitleCheck>Polo</TitleCheck>
               </CheckArea>
-              {checkPolo ? (
+              {checkPolo && (
                 <InputNumber
                   type="number"
                   name="input_polo"
-                  min={0}
+                  min={1}
+                  defaultValue={1}
                   onChange={(e) => setQntdPolo(e.target.value)}
                 />
-              ) : (
-                ""
               )}
             </CheckItem>
+
             <CheckItem>
               <CheckArea>
                 <input
@@ -222,17 +220,17 @@ export const Form = () => {
                 />
                 <TitleCheck>Caneca</TitleCheck>
               </CheckArea>
-              {checkCaneca ? (
+              {checkCaneca && (
                 <InputNumber
                   type="number"
-                  name="input_caderno"
-                  min={0}
+                  name="input_caneca"
+                  min={1}
+                  defaultValue={1}
                   onChange={(e) => setQntdCaneca(e.target.value)}
                 />
-              ) : (
-                ""
               )}
             </CheckItem>
+
             <CheckItem>
               <CheckArea>
                 <input
@@ -244,34 +242,33 @@ export const Form = () => {
                 />
                 <TitleCheck>Caderno</TitleCheck>
               </CheckArea>
-              {checkCaderno ? (
+              {checkCaderno && (
                 <InputNumber
                   type="number"
-                  name="input_caneca"
+                  name="input_caderno"
+                  min={1}
+                  defaultValue={1}
                   onChange={(e) => setQntdCaderno(e.target.value)}
-                  min={0}
                 />
-              ) : (
-                ""
               )}
             </CheckItem>
           </CheckContainer>
 
-          <ButtonSend type="submit" value="Confirmar" />
+          <ButtonSend type="submit" value="Confirmar Pedido" />
         </form>
       ) : sendStatus === "success" ? (
         <SuccessMenssage>
-          <p>Seu pedido foi enviado com sucesso!</p>
           <SuccessImage src={imgSucces} alt="sucesso" />
-          <p>
-            Logo entraremos em contato com você para prosseguir com seu pedido,
-            obrigado!
+          <p style={{ fontWeight: 700, fontSize: 18, color: '#B721FF' }}>
+            Pedido enviado com sucesso!
+          </p>
+          <p style={{ color: 'rgba(255,255,255,0.6)', marginTop: 8 }}>
+            Entraremos em contato em breve. Obrigado por escolher a Ruisu Studio!
           </p>
         </SuccessMenssage>
       ) : (
-        <p>
-          Tivemos um pequeno emprevisto com seu pedido, por favor entre em
-          contato através do nosso whatsaap: yago coloca seu numero aqui
+        <p style={{ color: 'rgba(255,255,255,0.7)' }}>
+          Tivemos um problema ao enviar. Por favor entre em contato via WhatsApp ou Instagram: <strong style={{ color: '#B721FF' }}>@ruisustudio</strong>
         </p>
       )}
     </>

@@ -7,6 +7,7 @@
 
 html {
   font-family: "Inter", sans-serif;
+  background-color: #050508;
 }
 
 @supports (font-variation-settings: normal) {
@@ -17,6 +18,7 @@ html {
 
 .app {
   @apply relative w-full h-screen overflow-hidden;
+  background-color: #050508;
 }
 
 .home {
@@ -28,7 +30,18 @@ html {
 }
 
 .head-text {
-  @apply xl:text-[10rem] text-[6rem] xl:leading-[11rem] leading-[7rem] font-black text-black;
+  @apply xl:text-[10rem] text-[6rem] xl:leading-[11rem] leading-[7rem] font-black;
+  background: linear-gradient(135deg, #ffffff 0%, #B721FF 50%, #00D4FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ruisu-badge {
+  @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest;
+  background: rgba(183, 33, 255, 0.15);
+  border: 1px solid rgba(183, 33, 255, 0.4);
+  color: #B721FF;
 }
 
 .download-btn {
@@ -36,11 +49,21 @@ html {
 }
 
 .editortabs-container {
-  @apply glassmorphism w-16 border-[2px] rounded-lg flex flex-col justify-center items-center ml-1 py-4 gap-4;
+  @apply w-16 border-[2px] rounded-lg flex flex-col justify-center items-center ml-1 py-4 gap-4;
+  background: rgba(13, 13, 24, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: rgba(183, 33, 255, 0.3) !important;
+  box-shadow: 0 0 20px rgba(183, 33, 255, 0.1);
 }
 
 .modeltabs-container {
-  @apply glassmorphism w-16 border-[2px] rounded-lg flex flex-col justify-center items-center mr-1 py-4 gap-4;
+  @apply w-16 border-[2px] rounded-lg flex flex-col justify-center items-center mr-1 py-4 gap-4;
+  background: rgba(13, 13, 24, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: rgba(183, 33, 255, 0.3) !important;
+  box-shadow: 0 0 20px rgba(183, 33, 255, 0.1);
 }
 
 .filtertabs-container {
@@ -48,35 +71,65 @@ html {
 }
 
 .aipicker-container {
-  @apply absolute left-full ml-3 glassmorphism p-3 w-[195px] h-[220px] rounded-md flex flex-col gap-4;
+  @apply absolute left-full ml-3 p-3 w-[195px] h-[220px] rounded-md flex flex-col gap-4;
+  background: rgba(13, 13, 24, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(183, 33, 255, 0.3);
 }
 
 .mousemovement-container {
-  @apply absolute left-full ml-3 glassmorphism p-3 w-[195px] h-[100px] rounded-md flex flex-col gap-4;
+  @apply absolute left-full ml-3 p-3 w-[195px] h-[100px] rounded-md flex flex-col gap-4;
+  background: rgba(13, 13, 24, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(183, 33, 255, 0.3);
 }
 
 .aipicker-textarea {
-  @apply w-full bg-transparent text-sm border border-gray-300 p-2 outline-none flex-1;
+  @apply w-full bg-transparent text-sm p-2 outline-none flex-1;
+  border: 1px solid rgba(183, 33, 255, 0.4);
+  color: #fff;
 }
 
 .filepicker-container {
-  @apply absolute left-full ml-3 glassmorphism p-3 w-[195px] h-[220px] flex flex-col rounded-md;
+  @apply absolute left-full ml-3 p-3 w-[195px] h-[220px] flex flex-col rounded-md;
+  background: rgba(13, 13, 24, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(183, 33, 255, 0.3);
 }
 
 .filepicker-label {
-  @apply border border-gray-300 py-1.5 px-2 rounded-md shadow-sm text-xs text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 cursor-pointer w-fit;
+  @apply py-1.5 px-2 rounded-md shadow-sm text-xs focus:outline-none cursor-pointer w-fit;
+  border: 1px solid rgba(183, 33, 255, 0.5);
+  color: #B721FF;
+  background: rgba(183, 33, 255, 0.1);
+}
+
+.filepicker-label:hover {
+  background: rgba(183, 33, 255, 0.2);
 }
 
 .tab-btn {
   @apply w-14 h-14 flex justify-center items-center cursor-pointer select-none;
+  filter: brightness(0) invert(1);
+  opacity: 0.6;
+  transition: opacity 0.2s, filter 0.2s;
+}
+
+.tab-btn:hover {
+  opacity: 1;
+  filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(240deg);
 }
 
 .glassmorphism {
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 2px 30px 0 rgba(31, 38, 135, 0.07);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(13, 13, 24, 0.85);
+  box-shadow: 0 2px 30px 0 rgba(183, 33, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(183, 33, 255, 0.2);
+}
+
+.ruisu-glow {
+  box-shadow: 0 0 30px rgba(183, 33, 255, 0.3), 0 0 60px rgba(183, 33, 255, 0.1);
 }
 
 input[type="file"] {
@@ -87,14 +140,34 @@ input[type="file"] {
 
 .sketch-picker {
   width: 170px !important;
-  background: rgba(255, 255, 255, 0.25) !important;
-  box-shadow: 0 2px 30px 0 rgba(31, 38, 135, 0.07) !important;
-  backdrop-filter: blur(4px) !important;
-  -webkit-backdrop-filter: blur(4px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  background: rgba(13, 13, 24, 0.95) !important;
+  box-shadow: 0 2px 30px 0 rgba(183, 33, 255, 0.15) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(183, 33, 255, 0.3) !important;
   border-radius: 6px !important;
 }
 
-.sketch-picker>div:nth-child(3) {
+.sketch-picker > div:nth-child(3) {
   display: none !important;
+}
+
+.sketch-picker input {
+  background: rgba(255,255,255,0.05) !important;
+  color: #fff !important;
+  border: 1px solid rgba(183,33,255,0.3) !important;
+}
+
+.sketch-picker label {
+  color: rgba(255,255,255,0.5) !important;
+}
+
+/* Neon glow pulse animation */
+@keyframes neon-pulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(183,33,255,0.4), 0 0 20px rgba(183,33,255,0.2); }
+  50% { box-shadow: 0 0 20px rgba(183,33,255,0.7), 0 0 40px rgba(183,33,255,0.3); }
+}
+
+.neon-pulse {
+  animation: neon-pulse 2s ease-in-out infinite;
 }
