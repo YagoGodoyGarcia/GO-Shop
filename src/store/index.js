@@ -7,7 +7,8 @@ const state = proxy({
     isFullTexture: false,
     logoDecal: './catLogo.png',
     fullDecal: './texture.jpg',
-    model: 'tshirt'
+    model: 'tshirt',
+    isModalOpen: false,
 });
 
 export default state;

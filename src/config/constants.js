@@ -1,62 +1,57 @@
-import { swatch, fileIcon, ai, logoShirt, stylishShirt, mouse, poloShirt, mug, diary } from "../assets";
+import { swatch, fileIcon, mouse, logoShirt, stylishShirt, poloShirt, mug, diary } from "../assets";
 
 export const EditorTabs = [
   {
     name: "colorpicker",
     icon: swatch,
-    helperText: "Color",
+    helperText: "Cor",
   },
   {
     name: "filepicker",
     icon: fileIcon,
-    helperText: "File",
+    helperText: "Logo",
   },
-  /**
-  {
-    name: "aipicker",
-    icon: ai,
-    helperText: "AI",
-  },*/
   {
     name: "mouseMovement",
     icon: mouse,
-    helperText: "Mouse",
-  }
+    helperText: "Girar",
+  },
 ];
 
 export const FilterTabs = [
   {
     name: "logoShirt",
     icon: logoShirt,
-    helperText: "Logo",
+    helperText: "Ícone",
   },
   {
     name: "stylishShirt",
     icon: stylishShirt,
-    helperText: "Texture",
+    helperText: "Estampa",
   },
 ];
-export const modelTabs = [ // Limit helpertext length to 6-7 characters
+
+export const modelTabs = [
   {
     name: "tshirt",
-    icon: logoShirt, // TODO: change to tshirt icon
+    icon: logoShirt,
     helperText: "Camiseta",
   },
   {
     name: "poloShirt",
-    icon: poloShirt, // TODO: change to poloShirt icon
+    icon: poloShirt,
     helperText: "Polo",
   },
   {
-    name: 'mug',
-    icon: mug, // TODO: change to mug icon
+    name: "mug",
+    icon: mug,
     helperText: "Caneca",
   },
   {
-    name: 'diary',
-    icon: diary, // TODO: change to diary icon
-    helperText: 'Caderno',
-  }
+    name: "diary",
+    icon: diary,
+    helperText: "Caderno",
+  },
 ];
 
 export const DecalTypes = {

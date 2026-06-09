@@ -31,7 +31,7 @@ export function Tshirt() {
             rotation={[0, 0, 0]}
             scale={1}
             map={fullTexture}
-            opacity={0}
+            opacity={1}
             depthTest={true} // or false, depending on your needs
             depthWrite={true} // or false, depending on your needs
           />
