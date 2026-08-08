@@ -1,8 +1,8 @@
 require("dotenv").config();
 
 const express = require("express");
-const fs = require("fs");
 const path = require("path");
+const keychainsConfig = require("./config/keychains.json");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,11 +10,8 @@ const PORT = process.env.PORT || 3000;
 // CDN pública do EmulatorJS. Pode ser trocada via env sem mexer em código.
 const EJS_CDN_URL = process.env.EMULATORJS_CDN_URL || "https://cdn.emulatorjs.org/stable/data/";
 
-const CONFIG_PATH = path.join(__dirname, "config", "keychains.json");
-
 function loadKeychains() {
-  const raw = fs.readFileSync(CONFIG_PATH, "utf-8");
-  const parsed = JSON.parse(raw);
+  const parsed = { ...keychainsConfig };
   delete parsed._comment;
 
   const keychains = {};
@@ -166,6 +163,10 @@ app.get("/play/:keyId", (req, res) => {
 </html>`);
 });
 
-app.listen(PORT, () => {
-  console.log(`Retro emulator demo rodando em http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Retro emulator demo rodando em http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
